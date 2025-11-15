@@ -102,10 +102,28 @@ def should_include_post(post: dict) -> bool:
 @app.get("/.well-known/atproto-did")
 async def get_did():
     """Return the DID for this feed generator."""
-    # You'll need to set up a DID for your feed generator
-    # This is a placeholder
+    # Return did:web based on the domain
     return JSONResponse({
-        "did": os.getenv("FEED_GENERATOR_DID", "did:plc:your-feed-did")
+        "did": "did:web:feed.laswaan.com"
+    })
+
+
+@app.get("/.well-known/did.json")
+async def get_did_document():
+    """Return the DID document for did:web."""
+    return JSONResponse({
+        "@context": [
+            "https://www.w3.org/ns/did/v1",
+            "https://w3id.org/security/multikey/v1"
+        ],
+        "id": "did:web:feed.laswaan.com",
+        "service": [
+            {
+                "id": "#atproto_feed",
+                "type": "AtprotoFeedGenerator",
+                "serviceEndpoint": "https://feed.laswaan.com"
+            }
+        ]
     })
 
 
@@ -215,7 +233,7 @@ async def get_feed_skeleton(
 async def describe_feed_generator():
     """Describe the feed generator."""
     return JSONResponse({
-        "did": os.getenv("FEED_GENERATOR_DID", "did:plc:your-feed-did"),
+        "did": "did:web:feed.laswaan.com",
         "feeds": [
             {
                 "uri": config.FEED_URI,
