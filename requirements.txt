@@ -1,0 +1,5 @@
+atproto>=0.0.50
+fastapi>=0.104.0
+uvicorn>=0.24.0
+python-dotenv>=1.0.0
+

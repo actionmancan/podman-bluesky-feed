@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: podman-feed
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python feed_generator.py
+    envVars:
+      - key: BLUESKY_HANDLE
+        sync: false
+      - key: BLUESKY_PASSWORD
+        sync: false
+      - key: FEED_GENERATOR_DID
+        sync: false
+      - key: PORT
+        value: 8000
+
