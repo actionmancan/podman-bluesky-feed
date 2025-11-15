@@ -243,6 +243,24 @@ async def describe_feed_generator():
     })
 
 
+@app.get("/")
+async def root():
+    """Root endpoint - provides feed information."""
+    return JSONResponse({
+        "service": "Podman Community Bluesky Feed Generator",
+        "status": "running",
+        "feed_uri": config.FEED_URI,
+        "feed_name": config.FEED_NAME,
+        "endpoints": {
+            "health": "/health",
+            "did": "/.well-known/atproto-did",
+            "did_document": "/.well-known/did.json",
+            "feed_description": "/xrpc/app.bsky.feed.describeFeedGenerator",
+            "feed_skeleton": "/xrpc/app.bsky.feed.getFeedSkeleton?feed=" + config.FEED_URI,
+        }
+    })
+
+
 @app.get("/health")
 async def health_check():
     """Health check endpoint."""
