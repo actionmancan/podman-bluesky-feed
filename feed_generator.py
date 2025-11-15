@@ -102,10 +102,24 @@ def should_include_post(post: dict) -> bool:
 @app.get("/.well-known/atproto-did")
 async def get_did():
     """Return the DID for this feed generator."""
-    # For feed generators hosted under a user's DID, this isn't actually used
-    # But we return it for completeness
     return JSONResponse({
-        "did": os.getenv("BLUESKY_DID", "did:plc:oe2nzi6rjpijm5o2w2gp7jzo")
+        "did": "did:web:feed.laswaan.com"
+    })
+
+
+@app.get("/.well-known/did.json")
+async def get_did_document():
+    """Return the DID document for did:web."""
+    return JSONResponse({
+        "@context": ["https://www.w3.org/ns/did/v1"],
+        "id": "did:web:feed.laswaan.com",
+        "service": [
+            {
+                "id": "#bsky_fg",
+                "type": "BskyFeedGenerator",
+                "serviceEndpoint": "https://feed.laswaan.com"
+            }
+        ]
     })
 
 
@@ -214,9 +228,8 @@ async def get_feed_skeleton(
 @app.get("/xrpc/app.bsky.feed.describeFeedGenerator")
 async def describe_feed_generator():
     """Describe the feed generator."""
-    # Return the user's DID since the feed is hosted under their account
     return JSONResponse({
-        "did": os.getenv("BLUESKY_DID", "did:plc:oe2nzi6rjpijm5o2w2gp7jzo"),
+        "did": "did:web:feed.laswaan.com",
         "feeds": [
             {
                 "uri": "at://did:plc:oe2nzi6rjpijm5o2w2gp7jzo/app.bsky.feed.generator/3m5p5ammzgh2s",
