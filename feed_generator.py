@@ -119,8 +119,8 @@ async def get_did_document():
         "id": "did:web:feed.laswaan.com",
         "service": [
             {
-                "id": "#atproto_feed",
-                "type": "AtprotoFeedGenerator",
+                "id": "#bsky_fg",
+                "type": "BskyFeedGenerator",
                 "serviceEndpoint": "https://feed.laswaan.com"
             }
         ]
