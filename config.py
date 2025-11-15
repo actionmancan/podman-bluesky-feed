@@ -5,7 +5,7 @@ Configuration for the Podman Community Bluesky Feed
 # Feed metadata
 FEED_NAME = "Podman Community"
 FEED_DESCRIPTION = "A curated feed for the Podman containerization community"
-FEED_URI = "at://did:web:feed.laswaan.com/feed/podman-community"
+FEED_URI = "at://did:plc:oe2nzi6rjpijm5o2w2gp7jzo/app.bsky.feed.generator/3m5p5ammzgh2s"
 
 # Keywords to search for in posts
 PODMAN_KEYWORDS = [
